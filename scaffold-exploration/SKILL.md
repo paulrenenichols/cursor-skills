@@ -1,6 +1,6 @@
 ---
 name: scaffold-exploration
-version: "1.1.0"
+version: "1.1.1"
 description: Prompts a discussion to create or update an exploration folder under _docs/planning/explorations/. Use when creating a new exploration or when updating an existing one (add feature sets, align README to standards, add supporting docs). Drafts READMEs with feature-set sections and skill version; after approval creates or updates per-feature markdown files, feature-sets/ and supporting-docs/ structure, and README links.
 ---
 
@@ -51,7 +51,6 @@ _docs/planning/explorations/<name>/
   README.md                    # Top-level: summary, structure blurb, skill version
   feature-sets/
     README.md                  # Feature-set index (sections + links, no global summary)
-    overview.md
     api-docs.md
     ...
   supporting-docs/
@@ -64,12 +63,12 @@ _docs/planning/explorations/<name>/
 
 - H1, skill version line ("Created with…" or "Updated with…"), global summary, link to explorations-evaluation.
 - **Structure** section: "Feature sets are in `feature-sets/` (see [feature-sets/README.md](feature-sets/README.md)). Supporting materials (screenshots, extra docs) are in [supporting-docs/](supporting-docs/) with a short index in [supporting-docs/README.md](supporting-docs/README.md)."
-- One `## <Feature set name>` per feature set with a short summary and link to `feature-sets/<slug>.md`.
+- One `## <Feature set name>` per feature set with a short summary and link to `feature-sets/<slug>.md`. Do **not** create or link to `overview.md`; the top-level global summary serves as the overview.
 
 **feature-sets/README.md**
 
 - No skill version line (only at exploration root). No global summary (lives in parent README).
-- One `## <Feature set name>` per feature set with short summary + "See [filename.md](filename.md)." Optional: "For overview and structure, see [../README.md](../README.md)."
+- One `## <Feature set name>` per feature set with short summary + "See [filename.md](filename.md)." Do **not** include a section for Overview / overview.md; the parent README global summary serves that purpose. Optional: "For overview and structure, see [../README.md](../README.md)."
 
 **supporting-docs/README.md**
 
@@ -113,10 +112,10 @@ _docs/planning/explorations/<name>/
 ## Phase 3 – Create feature-sets, supporting-docs, and commit (create flow)
 
 1. **Create `feature-sets/`** and **`feature-sets/README.md`**:
-   - In the README, one `## <Feature set name>` per feature set with short summary + "See [slug.md](slug.md)." (Use kebab-case slugs as below.)
+   - In the README, one `## <Feature set name>` per feature set with short summary + "See [slug.md](slug.md)." (Use kebab-case slugs as below.) **Do not** create a section or link for "Overview"; the top-level README global summary serves that purpose.
 
-2. **For each feature set** from the discussion:
-   - **Filename:** Kebab-case slug from the feature set name (e.g. "Live API documentation" → `api-docs.md`). If the first feature set is "Overview" or similar, use `overview.md`.
+2. **For each feature set** from the discussion **except Overview** (do not create `overview.md`; the top-level README global summary is the overview):
+   - **Filename:** Kebab-case slug from the feature set name (e.g. "Live API documentation" → `api-docs.md`). Skip this step if the feature set name is "Overview" or the slug would be `overview.md`.
    - **Content:** Create `_docs/planning/explorations/<name>/feature-sets/<slug>.md` with:
      - Title (H1) matching the feature set.
      - **Summary** — Short paragraph.
@@ -127,7 +126,7 @@ _docs/planning/explorations/<name>/
 
 4. **Update top-level README.md:**
    - Keep the header, skill version line, global summary, explorations-evaluation link, and structure blurb.
-   - In each feature-set section, **add a link** to the corresponding file (e.g. `See [api-docs.md](feature-sets/api-docs.md) for details.`).
+   - In each feature-set section, **add a link** to the corresponding file (e.g. `See [api-docs.md](feature-sets/api-docs.md) for details.`). If the user listed "Overview" as a feature set, keep that section with its summary only and **do not** add a link to overview.md (no overview file is created).
 
 5. Then run **add and commit** per "Branch and commit" above.
 
@@ -151,12 +150,13 @@ When the user wants to **update** an existing exploration:
 ### Step 2 – Discuss and decide
 
 - **Unmentioned files:** For each file (or folder) not referenced in any README, trigger a short discussion: "X is not mentioned in the README(s). Should we: (a) add a feature set / section and link it, (b) move it into supporting-docs and add a summary in supporting-docs/README.md, (c) leave as-is but add a mention, or (d) remove/relocate?" Do not change files until the user chooses.
-- **Supporting docs and feature sets:** For each supporting doc or folder (existing or newly added), ask the user how it relates to the feature sets. Document that relationship in supporting-docs/README.md by adding links to the related feature-set files (e.g. "Relates to [overview.md](../feature-sets/overview.md) and [api-docs.md](../feature-sets/api-docs.md).") in that doc's section. If the user says a supporting doc has no specific feature-set link, the section can omit the links and just give the summary.
+- **Supporting docs and feature sets:** For each supporting doc or folder (existing or newly added), ask the user how it relates to the feature sets. Document that relationship in supporting-docs/README.md by adding links to the related feature-set files (e.g. "Relates to [api-docs.md](../feature-sets/api-docs.md) and [db-ui.md](../feature-sets/db-ui.md).") in that doc's section. If the user says a supporting doc has no specific feature-set link, the section can omit the links and just give the summary.
 - **Optional:** Suggest bringing README up to "skill standard" (see README standards below) and, if the layout is flat, suggest migrating to the new structure (feature-sets/, supporting-docs/).
 
 ### Step 3 – Apply updates
 
-- **Adding feature sets:** Same as create: new section in top-level README and in feature-sets/README, new file under feature-sets/, link from both READMEs. Create feature-sets/ and supporting-docs/ first if the exploration is still flat.
+- **Overview file:** If `overview.md` exists (in `feature-sets/` or at the exploration root in a flat layout), remove it. The top-level README global summary serves that purpose. Update the top-level README and feature-sets/README to remove the Overview section or the link to overview.md so no broken link remains.
+- **Adding feature sets:** Same as create: new section in top-level README and in feature-sets/README, new file under feature-sets/, link from both READMEs. Do **not** create overview.md. Create feature-sets/ and supporting-docs/ first if the exploration is still flat.
 - **README standards check:** Ensure top-level README has: H1, skill version line, global summary, explorations-evaluation link; if using new structure, add structure blurb and feature-set sections with links to `feature-sets/*.md`. Ensure feature-sets/README and supporting-docs/README exist and are consistent with contents.
 - **Adding supporting files:** When the user adds files under `supporting-docs/` (or a subfolder), update `supporting-docs/README.md` with a section per new file/folder: a one-sentence summary plus, when the user has indicated a relationship, links to related feature-set files (e.g. "Relates to [feature-name.md](../feature-sets/feature-name.md).").
 - **Version line:** When making any edits, set the exploration's top-level README line to "Updated with the **scaffold-exploration** skill (vX.Y.Z)." where X.Y.Z is the **current** skill version (read from this skill's SKILL.md frontmatter). Replace any existing "Created with…" with this line (optionally append "(Created with …)" in parentheses for traceability). The version must always be the current skill version at the time of the run.
@@ -177,12 +177,12 @@ Use this checklist when checking or bringing an exploration README up to standar
 - One line: "Created with…" or "Updated with…" **scaffold-exploration** skill (vX.Y.Z) — version from current skill frontmatter.
 - One short paragraph global summary.
 - Link to explorations-evaluation.
-- If using new structure: "Structure" blurb + one `## <Feature set name>` per feature set with summary + link to `feature-sets/<file>.md`.
+- If using new structure: "Structure" blurb + one `## <Feature set name>` per feature set with summary + link to `feature-sets/<file>.md` (no overview.md; global summary is the overview).
 - No broken links to feature-set or supporting-docs files.
 
 **feature-sets/README.md**
 
-- One `## <Feature set name>` per feature set with short summary + link to the corresponding `.md` in the same folder.
+- One `## <Feature set name>` per feature set with short summary + link to the corresponding `.md` in the same folder. No Overview/overview.md section; the parent README global summary is the overview.
 
 **supporting-docs/README.md**
 
