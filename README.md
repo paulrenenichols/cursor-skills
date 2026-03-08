@@ -6,7 +6,7 @@ A collection of personal Cursor skills—one folder per skill. Each folder can b
 
 1. Clone this repo:
    ```bash
-   git clone https://github.com/<your-username>/cursor-skills.git
+   git clone https://github.com/paulrenenichols/cursor-skills.git
    cd cursor-skills
    ```
 2. Copy the skill folder(s) you want into your Cursor skills directory:
