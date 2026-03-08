@@ -1,6 +1,6 @@
 ---
 name: scaffold-exploration
-version: "1.1.1"
+version: "1.1.2"
 description: Prompts a discussion to create or update an exploration folder under _docs/planning/explorations/. Use when creating a new exploration or when updating an existing one (add feature sets, align README to standards, add supporting docs). Drafts READMEs with feature-set sections and skill version; after approval creates or updates per-feature markdown files, feature-sets/ and supporting-docs/ structure, and README links.
 ---
 
@@ -34,8 +34,11 @@ Existing flat explorations (README + feature `.md` files at exploration root, no
 
 > Should this work be done on the **current branch**, or on a **new branch from main**?
 
-- **If new branch from main:** In the **current project** (the _docs project where the exploration lives), run `git fetch origin` (or `git fetch origin main`), then create and checkout a new branch from `origin/main`. Use a branch name like `explore/<exploration-name>` once the exploration name is known, or `explore/new-exploration` if you create the branch before the name is decided.
-- **If current branch is main:** Treat like "new branch"—fetch latest main, then create and checkout a new branch from `origin/main` so the exploration is not committed directly to main.
+- **If new branch from main** (or **if current branch is main**, treat like "new branch" so the exploration is not committed directly to main): In the **current project** (the _docs project where the exploration lives):
+  1. **Fetch origin** — Run `git fetch origin` to update all refs (not just main). This ensures you see the latest state of all remote branches when checking if a branch name already exists.
+  2. **Choose base branch name** — **Create flow:** `explore/create/<exploration-name>` (exploration name is known after Phase 1; if the branch is created before the name is known, use `explore/create/new-exploration`). **Update flow:** `explore/update/<exploration-name>` where the exploration name is the folder name being updated (e.g. `demo-sql-charts`).
+  3. **Check if name exists** — Check if that branch exists locally (`git rev-parse --verify refs/heads/<branch-name>`) or on origin (`git rev-parse --verify refs/remotes/origin/<branch-name>`). If either exists, try `<base-name>-2`, then `-3`, and so on until an available name is found. This avoids reusing a branch that may have diverged from main after a squash-merge.
+  4. **Create and checkout** — Create and checkout a new branch from `origin/main` with the chosen name: `git checkout -b <chosen-name> origin/main`. Never checkout an existing explore branch; always create a fresh branch from main.
 - **If current branch and not main:** Proceed on the current branch; no fetch or new branch.
 
 **When scaffolding or updates are complete** (after Phase 3 for create, or after Step 4 for update): In the project repo, run `git add` for the exploration folder and any new or changed files, then `git commit` with a clear message (e.g. `Add exploration: <name>`, `Update exploration: <name>`, or `Scaffold exploration <name> with scaffold-exploration skill`). Do not push unless the user asks.
@@ -88,7 +91,7 @@ _docs/planning/explorations/<name>/
 
 4. Optionally ask if they want to add supporting materials later (screenshots, extra docs); if yes, `supporting-docs/` is created up front with a placeholder README.
 
-5. Do not create exploration files yet; only capture intent. (Branch setup may already be done if the user chose a new branch.)
+5. Do not create exploration files yet; only capture intent. **If the user chose "new branch from main"**, create the branch **after** Phase 1 when the exploration name is known, so the branch can be named `explore/create/<exploration-name>` (see Branch and commit above). If the branch was created earlier with `explore/create/new-exploration`, it is not renamed.
 
 ---
 
@@ -136,7 +139,7 @@ _docs/planning/explorations/<name>/
 
 When the user wants to **update** an existing exploration:
 
-**Before Step 1:** Ask the user about branch per **Branch and commit** above (current branch vs new branch from main). Then proceed with the steps below.
+**Before Step 1:** Ask the user about branch per **Branch and commit** above (current branch vs new branch from main). If they choose a new branch, use base name `explore/update/<exploration-folder-name>` (e.g. for folder `demo-sql-charts`, use `explore/update/demo-sql-charts`), then run the existence check and create a fresh branch from `origin/main`. Then proceed with the steps below.
 
 ### Step 1 – Review contents
 

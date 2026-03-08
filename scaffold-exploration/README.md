@@ -6,7 +6,7 @@ A Cursor skill that **creates or updates** an exploration folder under `_docs/pl
 
 **Create flow**
 
-- **Branch (optional):** Asks whether to work on the current branch or a new branch from main. If new branch (or if you're on main), fetches latest main and creates a branch so the exploration isn't committed directly to main.
+- **Branch (optional):** Asks whether to work on the current branch or a new branch from main. If new branch (or if you're on main), the agent fetches **origin** (all refs, not just main), picks a branch name `explore/create/<name>` (or `explore/create/new-exploration` if the name isn't known yet), checks if that name already exists locally or on the remote, and if so uses `-2`, `-3`, etc. so the branch is always **fresh from main**. This avoids reusing an old branch that may have diverged after a squash-merge. The branch is created after Phase 1 when the exploration name is known.
 - **Discussion:** Asks for an exploration name (or suggests one), a global summary, and feature sets with summaries. Groups ideas into logical feature sets.
 - **README draft:** Creates the exploration folder and a **top-level** README with: header, skill version, global summary, link to explorations-evaluation, a short "Structure" blurb (feature-sets/ and supporting-docs/), and one section per feature set (heading + summary). Pauses for your approval.
 - **Feature docs and structure:** After approval, creates `feature-sets/` with a README and one `.md` file per feature set (Summary, Scope, optional Implementation options / Out of scope), and creates `supporting-docs/` with a README (placeholder until you add assets). Updates the top-level README so each section links to `feature-sets/<file>.md`.
@@ -14,11 +14,20 @@ A Cursor skill that **creates or updates** an exploration folder under `_docs/pl
 
 **Update flow**
 
-- **Branch (optional):** Asks whether to work on the current branch or a new branch from main (same as create).
+- **Branch (optional):** Asks whether to work on the current branch or a new branch from main. If new branch, the agent fetches origin (all refs), uses base name `explore/update/<exploration-folder-name>`, checks for an existing branch with that name (local or remote), and if taken uses `-2`, `-3`, etc. It then creates a fresh branch from main with the chosen name (same rationale as create: avoid divergence after squash-merge).
 - **Review:** Lists all files and folders in the exploration and reads existing READMEs.
 - **Discuss:** For any file not mentioned in a README, asks whether to add it as a feature set, move it to supporting-docs, or leave as-is. For each supporting doc or folder, asks how it relates to feature sets so the agent can document that (with links) in `supporting-docs/README.md`.
 - **Apply:** Adds feature sets, brings READMEs up to standard, adds or updates supporting-docs sections (with links to related feature-set files when you've indicated a relationship), and sets the top-level README to "Updated with" the current skill version.
 - **Commit:** Adds and commits the changes.
+
+## Branch naming and freshness
+
+When you choose a **new branch from main** (or when you're on main), the skill:
+
+- **Names branches** so PRs are easy to recognize: `explore/create/<name>` for new explorations, `explore/update/<name>` for updates (e.g. `explore/create/demo-sql-charts`, `explore/update/developer-experience`).
+- **Fetches `origin`** (all refs) so it sees the latest remote branches before choosing a name.
+- **Checks if the name exists** (local or on origin). If `explore/create/demo-sql-charts` already exists, it uses `explore/create/demo-sql-charts-2`, then `-3`, etc., until the name is free.
+- **Creates a new branch from `origin/main`** with that name. It never reuses an existing explore branch by checking it out, so you always get a fresh branch from main. That avoids problems when your repo uses squash-merge: old explore branches can remain and have diverged from main; reusing them would mix old and new history.
 
 ## Why use it
 
@@ -58,14 +67,14 @@ The agent will either run the create flow (branch, name, summary, feature sets, 
 
 **Create**
 
-1. **Branch:** You choose current branch or new branch from main; if new (or on main), the agent fetches main and creates a branch.
+1. **Branch:** You choose current branch or new branch from main; if new (or on main), the agent fetches origin, picks `explore/create/<name>` (or a unique name like `-2` if it exists), and creates a fresh branch from main.
 2. **Phase 1 (Discussion):** Agent asks for exploration name (or suggests one), global summary, and feature sets with summaries.
 3. **Phase 2 (README):** Agent creates the exploration folder and top-level README (header, version, global summary, structure blurb, feature-set sections). You review and approve.
 4. **Phase 3 (Feature docs and structure):** Agent creates `feature-sets/` (README + one `.md` per feature set) and `supporting-docs/` (README with placeholder), updates the top-level README with links to `feature-sets/*.md`, then adds and commits.
 
 **Update**
 
-1. **Branch:** You choose current branch or new branch from main (same as create).
+1. **Branch:** You choose current branch or new branch from main; if new, the agent fetches origin, picks `explore/update/<name>` (or `-2`, `-3` if taken), and creates a fresh branch from main.
 2. **Review:** Agent lists contents and reads READMEs.
 3. **Discuss:** Agent asks what to do with unmentioned files and how each supporting doc relates to feature sets.
 4. **Apply:** Agent adds feature sets, fixes READMEs, updates supporting-docs/README with summaries and links to feature-set files, sets "Updated with" skill version.
