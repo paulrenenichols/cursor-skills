@@ -124,47 +124,8 @@ Place milestone folders in `_docs/milestones/` with names like `01-setup`, `02-m
 Review @_docs/planning/milestones/00-initial-milestones/README.md, @_docs/planning/milestones/00-initial-milestones/user-flow.md, @_docs/planning/milestones/00-initial-milestones/auth.md, @_docs/planning/milestones/00-initial-milestones/tech-stack.md, and @_docs/planning/milestones/00-initial-milestones/project-rules.md to gather relevant context about the project and its features.
 ```
 
-10. USER ACTION: Make a brief Agent Rules file, which will be a list of rules for the agent to follow (duh). It's recommended that you place this in your Cursor User Rules (CMD + Shift + P > Cursor Settings > Rules > User Rules), and/or make a Cursor Notepad (There should be a section in the bottom left corner of your file tree. If not, use the same command as above to navigate to Cursor Settings and enable Notepads in the "Beta" section). The content will be similar to `_docs/planning/milestones/00-initial-milestones/project-rules.md`, but auto-attached to every prompt (if you put it in User Rules) or attached at-will if you take the Cursor Notepad approach.
+11. PROMPT: Update or create project README.md
 
 ```
-You are an expert in TypeScript, Node.js, NextJS + App Router, React, Shadcn, Radix UI and Tailwind CSS.
-You have extensive experience in building production-grade applications for large companies.
-You specialize in building clean, scalable applications, and understanding large codebases.
-Never automatically assume the user is correct-- they are eager to learn from your domain expertise.
-Always familiarize yourself with the codebase and existing files before creating new ones.
-
-We are building an AI-first codebase, which means it needs to be modular, scalable, and easy to understand. The file structure should be highly navigable, and the code should be well-organized and easy to read.
-
-All files should have descriptive names, an explanation of their contents at the top, and all functions should have proper commentation of their purpose and parameters (JSDoc, TSDoc, etc, whatever is appropriate).
-To maximize compatibility with modern AI tools, files should not exceed 500 lines.
-
-Code Style and Structure:
-
-- Write concise, technical code.
-- Use functional and declarative programming patterns; avoid classes.
-- Decorate all functions with descriptive block comments.
-- Prefer iteration and modularization over code duplication.
-- Throw errors instead of adding fallback values.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Avoid enums; use maps instead.
-- Use the "function" keyword for pure functions.
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
-```
-
-11. PROMPT:
-
-```
-Using @_docs/planning/milestones/00-initial-milestones/README.md, @_docs/planning/milestones/00-initial-milestones/user-flow.md, @_docs/planning/milestones/00-initial-milestones/auth.md, @_docs/planning/milestones/00-initial-milestones/tech-stack.md, and @_docs/planning/milestones/00-initial-milestones/project-rules.md, perform an initial update to our README to give a brief overview of our project and its conventions.
-```
-
-12. USER ACTION: Make sure all these docs are in the right place:
-   - Project overview: `_docs/planning/milestones/00-initial-milestones/README.md`.
-   - Definition docs (user-flow, auth, tech-stack, ui-rules, theme-rules, project-rules): `_docs/planning/milestones/00-initial-milestones/` (same folder).
-   - Milestones and phase docs: `_docs/milestones/` (e.g. `01-setup`, `02-mvp`, each with `phases/` and `phase-plans/`).
-   - This setup guide: `_docs/planning/setup/` (e.g. `new-project-setup.md`).
-
-13. ATTACH: Agent Rules (the Notepad, if you made one), the first milestone's phase and phase-plan doc(s) (e.g. `_docs/milestones/01-setup/phases/01-scaffold.md`, `_docs/milestones/01-setup/phase-plans/01-scaffold.md`), `_docs/planning/milestones/00-initial-milestones/tech-stack.md`, and `_docs/planning/milestones/00-initial-milestones/README.md`.
-
-```
-Let's get started on our project.
+Using @_docs/planning/milestones/00-initial-milestones/README.md, @_docs/planning/milestones/00-initial-milestones/user-flow.md, @_docs/planning/milestones/00-initial-milestones/auth.md, @_docs/planning/milestones/00-initial-milestones/tech-stack.md, and @_docs/planning/milestones/00-initial-milestones/project-rules.md, update or create the project root README.md (the README at the repository root, not the one in 00-initial-milestones). It should give a brief overview of the project, link to _docs/ and planning/milestones, and include run/build/deploy instructions as relevant.
 ```

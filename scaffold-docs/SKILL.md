@@ -1,6 +1,6 @@
 ---
 name: scaffold-docs
-version: "1.0.0"
+version: "1.1.0"
 description: Creates a fresh _docs structure in a new project (planning, milestones, progress, setup), helps plan and write the 00-initial-milestones README, then runs an adapted new-project-setup workflow to generate definition files and initial milestones. Use when starting a new project and the user wants _docs-based planning and milestone/phase workflow.
 ---
 
@@ -69,7 +69,7 @@ Use this skill when the user wants to create a fresh `_docs/` folder structure i
 1. The project now has `_docs/planning/setup/new-project-setup.md` (copied from the skill). Its paths already use the **flat** layout: all definition files in `_docs/planning/milestones/00-initial-milestones/`; the overview is README.md in that folder.
 2. Follow the **sequence** in that file: overview (README) → user-flow → auth → tech-stack → ui-rules/theme-rules → project-rules → milestones/phases/phase-plans. Use the prompts and steps in the project's `new-project-setup.md`; do not rewrite paths.
 3. **Milestone generation (step 9):** Create `_docs/milestones/01-setup`, `02-mvp`, etc., each with `phases/` and `phase-plans/` and number-prefixed files. Phase-plan conventions: branch first, commit/push at logical points, README step, progress doc at `_docs/progress/<milestone>/<phase>.md`, final commit on user approval.
-4. The skill does **not** implement steps 10–13 (Agent Rules, root README update, verification checklist, "Let's get started"). Optionally point the user to those steps in the copied `new-project-setup.md` as "Optional next steps."
+4. The skill implements through step 11 (update or create project root README). Steps 10 (Agent Rules), 12 (verification), and 13 (attach and start) are no longer in the setup doc; users may add Agent Rules or verify doc locations on their own if desired.
 
 ---
 
