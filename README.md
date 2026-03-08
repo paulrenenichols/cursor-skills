@@ -26,3 +26,4 @@ To install a single skill without cloning the whole repo, clone then copy just t
 | Skill | Description |
 |-------|-------------|
 | [scaffold-docs](./scaffold-docs) | Scaffolds a `_docs/` structure and planning workflow in new projects (00-initial-milestones README, definition docs, milestones/phases). |
+| [scaffold-exploration](./scaffold-exploration) | Prompts a discussion to create a new exploration folder under _docs/planning/explorations/, drafts a README with feature-set sections and skill version, then after approval creates per-feature markdown files and updates the README with links. |
