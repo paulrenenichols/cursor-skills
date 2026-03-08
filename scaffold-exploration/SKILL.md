@@ -1,6 +1,6 @@
 ---
 name: scaffold-exploration
-version: "1.0.0"
+version: "1.1.0"
 description: Prompts a discussion to create or update an exploration folder under _docs/planning/explorations/. Use when creating a new exploration or when updating an existing one (add feature sets, align README to standards, add supporting docs). Drafts READMEs with feature-set sections and skill version; after approval creates or updates per-feature markdown files, feature-sets/ and supporting-docs/ structure, and README links.
 ---
 
@@ -136,6 +136,8 @@ _docs/planning/explorations/<name>/
 ## Update an exploration
 
 When the user wants to **update** an existing exploration:
+
+**Before Step 1:** Ask the user about branch per **Branch and commit** above (current branch vs new branch from main). Then proceed with the steps below.
 
 ### Step 1 – Review contents
 

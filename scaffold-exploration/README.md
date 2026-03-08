@@ -14,6 +14,7 @@ A Cursor skill that **creates or updates** an exploration folder under `_docs/pl
 
 **Update flow**
 
+- **Branch (optional):** Asks whether to work on the current branch or a new branch from main (same as create).
 - **Review:** Lists all files and folders in the exploration and reads existing READMEs.
 - **Discuss:** For any file not mentioned in a README, asks whether to add it as a feature set, move it to supporting-docs, or leave as-is. For each supporting doc or folder, asks how it relates to feature sets so the agent can document that (with links) in `supporting-docs/README.md`.
 - **Apply:** Adds feature sets, brings READMEs up to standard, adds or updates supporting-docs sections (with links to related feature-set files when you've indicated a relationship), and sets the top-level README to "Updated with" the current skill version.
@@ -64,9 +65,10 @@ The agent will either run the create flow (branch, name, summary, feature sets, 
 
 **Update**
 
-1. **Review:** Agent lists contents and reads READMEs.
-2. **Discuss:** Agent asks what to do with unmentioned files and how each supporting doc relates to feature sets.
-3. **Apply:** Agent adds feature sets, fixes READMEs, updates supporting-docs/README with summaries and links to feature-set files, sets "Updated with" skill version.
-4. **Commit:** Agent adds and commits the exploration folder.
+1. **Branch:** You choose current branch or new branch from main (same as create).
+2. **Review:** Agent lists contents and reads READMEs.
+3. **Discuss:** Agent asks what to do with unmentioned files and how each supporting doc relates to feature sets.
+4. **Apply:** Agent adds feature sets, fixes READMEs, updates supporting-docs/README with summaries and links to feature-set files, sets "Updated with" skill version.
+5. **Commit:** Agent adds and commits the exploration folder.
 
 After that, you can evaluate the exploration with `_docs/planning/setup/explorations-evaluation.md` or turn it into a milestone.
