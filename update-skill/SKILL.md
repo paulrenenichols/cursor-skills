@@ -1,6 +1,6 @@
 ---
 name: update-skill
-version: "1.0.0"
+version: "1.0.1"
 description: >-
   Guides through updating any Cursor skill: gathers change details, determines
   semver bump (major/minor/patch), updates the version in SKILL.md frontmatter,
@@ -136,7 +136,11 @@ Only include categories that have entries. Use the user's change description fro
 # Changelog
 ```
 
-### 3c. Update description (if needed)
+### 3c. Update README.md
+
+Check the skill's README.md for any version references (e.g. "Current version: X.Y.Z", "v1.2.0", version numbers in example output or install instructions). Update them to the new version. If the README describes capabilities that have changed, update those sections too.
+
+### 3d. Update description (if needed)
 
 If the changes meaningfully alter what the skill does or when it triggers, ask the user whether the `description` in SKILL.md frontmatter should also be updated. Propose a revised description if so.
 
